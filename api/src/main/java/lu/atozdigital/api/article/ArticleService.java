@@ -1,5 +1,6 @@
 package lu.atozdigital.api.article;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,9 @@ public class ArticleService {
 	
 		articleO = articleRepository.findById(id);
 		return articleO;
+	}
+	
+	public List<Article> getArticles() {
+		return articleRepository.findAll();
 	}
 }

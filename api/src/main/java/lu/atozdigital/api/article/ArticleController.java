@@ -1,6 +1,8 @@
 package lu.atozdigital.api.article;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +50,16 @@ public class ArticleController {
 			throw new ApiRestException("Oops article not found !!");
 		articleDTO = modelMapper.map(articleO.get(), ArticleDTO.class);
 		return new ResponseEntity<ArticleDTO>(articleDTO, HttpStatus.OK);
+	}
+	
+	@GetMapping
+	public List<ArticleDTO> getArticles(){
+		List<Article> articles;
+		List<ArticleDTO> articlesDTO;
+		
+		articles = articleService.getArticles();
+		articlesDTO = articles.stream().map(article -> modelMapper.map(article, ArticleDTO.class))
+				.collect(Collectors.toList());
+		return articlesDTO;
 	}
 }
