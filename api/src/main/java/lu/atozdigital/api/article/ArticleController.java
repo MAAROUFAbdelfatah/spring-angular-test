@@ -1,10 +1,14 @@
 package lu.atozdigital.api.article;
 
+import java.util.Optional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,5 +36,17 @@ public class ArticleController {
 			throw new ApiRestException("Oops Upload problem !!");
 		}
 		return new ResponseEntity<Article>(HttpStatus.OK);
+	}
+	
+	@GetMapping(path="{articleId}")
+	public ResponseEntity<ArticleDTO> findArticle(@PathVariable("articleId") Long id){
+		Optional <Article> articleO;
+		ArticleDTO articleDTO;
+		
+		articleO =  articleService.findArticle(id);
+		if(!articleO.isPresent())
+			throw new ApiRestException("Oops article not found !!");
+		articleDTO = modelMapper.map(articleO.get(), ArticleDTO.class);
+		return new ResponseEntity<ArticleDTO>(articleDTO, HttpStatus.OK);
 	}
 }
