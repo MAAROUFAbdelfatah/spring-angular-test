@@ -7,6 +7,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,5 +34,12 @@ public class OrderController {
 		ordersDTO = orders.stream().map(order -> modelMapper.map(order, OrderDTO.class))
 				.collect(Collectors.toList());
 		return ordersDTO;
+	}
+	
+	@PostMapping
+	public void addOrder(@RequestBody OrderDTO orderDTO){
+		Order order;
+		order = modelMapper.map(orderDTO, Order.class);
+		orderService.addOrder(order);
 	}
 }
