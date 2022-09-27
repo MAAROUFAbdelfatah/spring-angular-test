@@ -1,16 +1,25 @@
 package lu.atozdigital.api.order;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import lu.atozdigital.api.exception.ApiRestException;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -41,5 +50,22 @@ public class OrderController {
 		Order order;
 		order = modelMapper.map(orderDTO, Order.class);
 		orderService.addOrder(order);
+	}
+	
+	@PutMapping(path = "{orderId}")
+	public ResponseEntity<Object> editOrder(@PathVariable("orderId") Long id
+			,@Valid @RequestBody OrderDTO orderDTORequest){
+		Order orderRequest;
+		Optional<Order> orderO;
+		Order order;
+
+		orderRequest = modelMapper.map(orderDTORequest, Order.class);		
+		orderO = orderService.getOrder(id);
+		if (!orderO.isPresent())
+			throw new ApiRestException("Oops order not found !!"); 
+		order = orderO.get();
+		order.setArticles(orderRequest.getArticles());
+		orderService.saveOrder(order);
+		return new ResponseEntity<Object>(HttpStatus.OK);
 	}
 }

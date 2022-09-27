@@ -4,6 +4,7 @@ package lu.atozdigital.api.order;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,14 @@ final IOrderRepository orderRepository;
 			ref.append(base.charAt(index));
 		}
 		return ref.toString();
+	}
+	
+	public Optional<Order> getOrder(Long id) {
+		return orderRepository.findById(id);
+	}
+	
+	public void saveOrder(Order order) {
+		orderRepository.save(order);
 	}
 
 }
