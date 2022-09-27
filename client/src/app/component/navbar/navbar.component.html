@@ -1,0 +1,50 @@
+<nav class="fixed top-0 left-0 bg-white w-full shadow-lg">
+    <div class="container m-auto flex justify-between items-center text-gray-700">
+        <h1 class="pl-8 py-4 text-xl font-bold"> ATOZ-TEST
+        </h1>
+        <ul class="hidden md:flex items-center pr-10 text-base font-semibold cursor-pointer">
+            <li class="text-gray-600 font-bold hover:text-gray-900 py-4 px-6">
+                <a routerLink="/">Articles</a>
+            </li>
+            <li class="text-gray-600 font-bold hover:text-gray-900 py-4 px-6">
+                <a routerLink="/Orders">Orders</a>
+                <span *ngIf="nbrOrders !== 0" class="text-white bg-red-600 absolute rounded-full text-xs -mt-0 ml-0 py-0 px-1.5">{{nbrOrders}}</span>
+            </li>
+            <li class="text-gray-600 font-bold hover:text-gray-900 py-4 px-6">
+                <a routerLink="/AddArticle">Add Article</a>
+            </li>
+            <li class="text-gray-600 font-bold hover:text-gray-900 py-4 px-6">
+                <a routerLink="/Cart">
+                    <fa-icon [icon]="faCart"></fa-icon>
+                    <span *ngIf="nbrArticles !== 0" class="text-white bg-red-600 absolute rounded-full text-xs -mt-2 ml-0 py-0 px-1.5">{{nbrArticles}}</span>
+                </a>
+            </li>
+        </ul>
+        <button class="block md:hidden py-3 px-4 mx-2 rounded focus:outline-none hover:bg-gray-200 group">
+            <div class="w-5 h-1 bg-gray-600 mb-1"></div>
+            <div class="w-5 h-1 bg-gray-600 mb-1"></div>
+            <div class="w-5 h-1 bg-gray-600"></div>
+            <div class="absolute top-0 -right-full h-screen w-8/12 bg-white border opacity-0 group-focus:right-0 group-focus:opacity-80 transition-all duration-1000">
+                <ul class="flex flex-col items-center w-full text-base cursor-pointer pt-10">
+                    <li>
+                        <a class="text-gray-600 font-bold hover:text-gray-900 py-4 px-6 w-full" routerLink="/">Articles</a>
+                    </li>
+                    <li class="text-gray-600 font-bold hover:text-gray-900 py-4 px-6 w-full">
+                        <a routerLink="/Orders">Orders</a>
+                        <span *ngIf="nbrOrders !== 0"class="text-white bg-red-600 absolute rounded-full text-xs -mt-0 ml-0 py-0 px-1.5">{{nbrOrders}}</span>
+                    </li>
+                    <li class="text-gray-600 font-bold hover:text-gray-900 py-4 px-6 w-full">
+                        <a routerLink="/AddArticle">Add Article</a>
+                    </li>
+                    <li class="text-gray-600 font-bold hover:text-gray-900 py-4 px-6 w-full">
+                        <a routerLink="/Cart">
+                            <fa-icon [icon]="faCart"></fa-icon>
+                            <span *ngIf="nbrArticles !== 0"class="text-white bg-red-600 absolute rounded-full text-xs -mt-2 ml-0 py-0 px-1.5">{{nbrArticles}}</span>
+                        </a>
+                    </li>
+        
+                </ul>
+            </div>
+        </button>
+    </div>
+</nav>

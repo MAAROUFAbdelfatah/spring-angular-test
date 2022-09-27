@@ -1,0 +1,27 @@
+<div class=" mt-32 justify-center text-center container lg:max-w-2xl md:max-w-2xl  sm:mx-auto ">
+
+    <h2 class="text-2xl text-center">Edit Order</h2>
+    <ul class="flex flex-col divide-y divide-gray-700">
+        <li class="text-left">
+            <span class="text-slate-600 text-lg">Reference: </span>{{order.reference}}
+            <br>
+            <span class="text-slate-600 text-lg">Date: </span>{{order.date}}
+        </li>
+        <div *ngIf="articles.length !== 0" class="flex flex-col">
+            <app-cart-item *ngFor="let article of order.articles" (deleteArticle)="onDeleteArticleOrder(article)" [article]="article"></app-cart-item>
+        </div>
+    </ul>
+    <div class="p-10">
+        <div class="dropdown inline-block relative">
+            <button class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+            <span class="mr-1">Add Article To The Order</span><fa-icon [icon]="downArrow"></fa-icon>
+          </button>
+            <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
+                <li *ngFor="let article of articles"><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" (click)="addArticleToOrder(article)">{{article.name}}</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="flex justify-end space-x-4 mb-10">
+        <button class=" mb-3 w-60 h-12 text-white font-bold transition-colors duration-150 bg-blue-600 rounded-lg focus:shadow-outline hover:bg-blue-800" (click)="editOrder()">Update Order</button>
+    </div>
+</div>

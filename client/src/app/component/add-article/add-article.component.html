@@ -1,0 +1,34 @@
+<h1 class="text-2xl text-center mt-40">
+    Add Article</h1>
+<div class="flex justify-center ">
+    <form class="p-4 w-full max-w-md rounded-lg border shadow-md mt-4" (ngSubmit)="addArticle()" [formGroup]="articleForm">
+        <div class="mb-4">
+            <label class="block text-black text-sm font-bold mb-2" for="name">
+                Name:
+            </label>
+
+            <input class="border border-slate-400 shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Add Name" formControlName="name">
+            <div>
+                <small class="text-red-600" *ngIf="articleForm.get('name')?.invalid && articleForm.get('name')?.touched">Please enter your name</small>
+            </div>
+        </div>
+        <div class="mb-4">
+            <label class="block text-black text-sm font-bold mb-2" for="price">
+              Price (MAD):
+            </label>
+            <input class="border border-slate-400 shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="price" type="number" name="price" placeholder="Add Price" formControlName="price">
+            <div>
+                <small class="text-red-600" *ngIf="articleForm.get('price')?.invalid && articleForm.get('price')?.touched">Please enter the price!</small>
+            </div>
+        </div>
+
+        <label class="block text-black text-sm font-bold mb-2" for="file_input">Upload Image (size < 4 MB ): </label>
+
+        <input (change)="onImageUpload($event)" class="bloc w-full text-smrounded-lg border rounded cursor-pointerfocus:outline-none" id="file_input" type="file" formControlName="picture" accept=".png, .jpg">
+        <div>
+            <small class="text-red-600" *ngIf="articleForm.get('picture')?.invalid && articleForm.get('picture')?.touched">Please upload the image!</small>
+        </div>
+        <input [ngClass]="{'bg-blue-300 hover:bg-blue-300': !articleForm.valid}" [disabled]="articleForm.invalid" type="submit" value="Save Article" class=" mt-5 w-full h-12 text-white font-bold transition-colors duration-150 bg-blue-600 rounded-lg focus:shadow-outline hover:bg-blue-800"
+        />
+    </form>
+</div>
