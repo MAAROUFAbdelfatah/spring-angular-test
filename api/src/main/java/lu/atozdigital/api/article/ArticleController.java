@@ -51,7 +51,7 @@ public class ArticleController {
 		articleDTO = modelMapper.map(articleO.get(), ArticleDTO.class);
 		return new ResponseEntity<ArticleDTO>(articleDTO, HttpStatus.OK);
 	}
-	
+	//
 	@GetMapping
 	public List<ArticleDTO> getArticles(){
 		List<Article> articles;
